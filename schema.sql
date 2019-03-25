@@ -44,7 +44,7 @@ create table reviews(
 create table favorites (
     id serial primary key, -- id is optional in this case.
     user_id integer references users(id), -- foreign key to the users table
-    restaurant_id integer references restaurents(id) -- foreign key to restaurent table
+    restaurant_id integer references restaurants(id) -- foreign key to restaurent table
     -- reviews text -- this is "meatdata" about th relationship
     --             --  this field has a plural name.
     --             -- that's not a good thing

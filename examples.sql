@@ -27,7 +27,7 @@
         inner join favorites fav
             on rev.id = fav.restaurant_id
             where rev.name ilike "applebees"
-            group by res.name;
+            group by rev.name;
 
     -- 4. get count of favorites for restaurant by id #
     -- 
