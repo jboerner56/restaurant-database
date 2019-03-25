@@ -1,8 +1,14 @@
 -- user profile
     -- 1. get all columns for a user by id #
+    select * from users
+    where user_id = 1;
     --  1a. get only a few fields for pbulic version
+    select first_name, email from users;
     --  1b. get all fields for private version
+    select * from users;
     -- 2. get all favorites by a user by id #
+    select * from favorites
+    where user_id = 2;
     -- 3. get all reviews written by that user by id #
 
 -- restaurant profile
