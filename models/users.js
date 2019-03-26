@@ -25,6 +25,23 @@ class User {
                 const userInstance = new User(userData.id, userData.first_name, userData.last_name, userData.email, userData.password);
                 return userInstance;
             })
+            .catch(() => {
+                return null; // signal an invalid value
+            })
+    }
+    // no "static" since this is an individual "instance method"
+    // (it belongs to an individual instance)
+    save() {
+        // use .result when you might want a report about how many rows were effected
+        // must return so it can be used
+        return db.result(`
+        update users set 
+            first_name='${this.firstName}',
+            last_name='${this.lastName}',
+            email='${this.email}',
+            password=${this.password}
+        where id=${this.id}
+        `)
     }
 }
 // User.getById(3)
