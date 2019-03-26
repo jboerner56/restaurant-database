@@ -15,7 +15,8 @@
 
 -- restaurant profile
     -- 1. get all info for a restaurant by id #
-    select * from restaurants;
+    select * from restaurants
+    where restaurant_id = 1;
     -- 2. get all reviews for restaurant by id #
     select * from reviews 
         where restaurant_id = 1;
