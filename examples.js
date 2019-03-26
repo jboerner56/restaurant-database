@@ -32,18 +32,44 @@ return db.any(`select * from users where id = ${theId};`)
 // main2();
 
 
-async function main3(){
+// async function main3(){
+//     const idArray = [1,2,3,4];
+//     const userArray = [];
+//     idArray.forEach(async function(id){
+//         const user = await getUserById(id);
+//         userArray.push(user);
+//     });
+//     console.log(userArray);
+//     return userArray;
+// }
+// const theUsers = main3();
+// console.log(theUsers);
+
+async function main4(){
     const idArray = [1,2,3,4];
-    const userArray = [];
-    idArray.forEach(async function(id){
-        const user = await getUserById(id);
-        userArray.push(user);
+
+    const userPromiseArray = idArray.map(function(id){
+        return getUserById(id);
     });
-    console.log(userArray);
+
+    return Promise.all(userPromiseArray);
 }
-main3();
+main5()
+    .then(function(userArray){
+        console.log(userArray);
+    })
+
+async function main5(){
+    const user3 = await getUserById(3);
+    const user4 = await getUserById(4);
+
+    console.log(user3);
+    console.log(user4);
+}
+main5();
+
 // get all info for restaurant by id #
-function getRestInfoById(id){
-    return db.any(`select * from restaurants where id = ${id}`)
-}
-getRestInfoById(1).then(console.log);
+// function getRestInfoById(id){
+//     return db.any(`select * from restaurants where id = ${id}`)
+// }
+// getRestInfoById(1).then(console.log);
