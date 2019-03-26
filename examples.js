@@ -22,15 +22,26 @@ return db.any(`select * from users where id = ${theId};`)
 // // }
 // main();
 
-async function main2(){
+// async function main2(){
+//     const idArray = [1,2,3,4];
+//     idArray.forEach(async function(id){
+//         const user = await getUserById(id);
+//         console.log(user)
+//     });
+// }
+// main2();
+
+
+async function main3(){
     const idArray = [1,2,3,4];
+    const userArray = [];
     idArray.forEach(async function(id){
         const user = await getUserById(id);
-        console.log(user)
+        userArray.push(user);
     });
+    console.log(userArray);
 }
-main2();
-
+main3();
 // get all info for restaurant by id #
 function getRestInfoById(id){
     return db.any(`select * from restaurants where id = ${id}`)
