@@ -1,29 +1,38 @@
 const db = require('./conn');
 // get all info for user based on id #
-async function getUserById(theId){
+function getUserById(theId){
 
-return await db.any(`select * from users where id = ${theId};`)
+return db.any(`select * from users where id = ${theId};`)
 }
 // getUserById(1).then(console.log);
 
-async function main(){
-    // await + async
-    const user3 = await getUserById(3);
-    console.log(user3);
 
-    // promises.
-//     getUserById(3)
-//         .then(function(user3){
-//             console.log(user3);
-//         })
-// }
-main();
+// async functions can use the keyword "await" 
+// async function main(){
+//     // await + async
+//     const user3 = await getUserById(3); // "await" waits for promises
+//                                         // its like implicit ".then"
+//     console.log(user3);
+
+//     // promises.
+// //     getUserById(3)
+// //         .then(function(user3){
+// //             console.log(user3);
+// //         })
+// // }
+// main();
+
+async function main2(){
+    const idArray = [1,2,3,4];
+    idArray.forEach(async function(id){
+        const user = await getUserById(id);
+        console.log(user)
+    });
+}
+main2();
 
 // get all info for restaurant by id #
 function getRestInfoById(id){
     return db.any(`select * from restaurants where id = ${id}`)
 }
-getRestInfoById(1).then(console.log)
-
-
-// 
+getRestInfoById(1).then(console.log);
