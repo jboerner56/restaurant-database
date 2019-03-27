@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/jboerner56/restaurant-database#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "pg-promise": "^8.6.4",

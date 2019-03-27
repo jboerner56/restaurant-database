@@ -49,6 +49,15 @@ describe('Users model', () => {
         //         expect(alsoTheUser.email).to.equal('new@new.com');
         //     });
     });
+    it('should encrypt the password', async () =>{
+        // get user with id 1
+        const theUser = await User.getById(1);
+        // set their password field to "bacon"
+        theUser.setPassword("bacon");
+        // compare their password to "bacon"
+        expect(theUser.password).not.to.equal("bacon");
+        // it should be false
+    })
 }); 
 
 describe('Reviews model', () => {
@@ -59,7 +68,7 @@ describe('Reviews model', () => {
         expect(theReview).to.be.an.instanceOf(Review);
     });
     // can i get all reviews
-    it('should be able to retrieve ll reviews', async() => {
+    it('should be able to retrieve all reviews', async() => {
         const allReviews = await Review.getAll();
         expect(allReviews).to.be.an.instanceOf(Array);
         // makre sure each of them is an array
