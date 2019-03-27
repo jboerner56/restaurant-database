@@ -57,7 +57,23 @@ describe('Users model', () => {
         // compare their password to "bacon"
         expect(theUser.password).not.to.equal("bacon");
         // it should be false
-    })
+    });
+    it('should be able to check for correct passwords', async () => {
+        // get a user with id 1
+        const theUser = await User.getById(1);
+        // set their password field to "bacon"
+        theUser.setPassword("bacon")
+        // save them to the database
+        await theUser.save();
+        // get them back out of the database
+        const sameUser = await User.getById(1);
+        // ask them if their password is bacon
+        const isRightPassword = sameUser.checkPassword("bacon")
+        expect(isRightPassword).to.be.true;
+
+        const wrongPassword = sameUser.checkPassword("veges")
+        expect(wrongPassword).to.be.false;
+    });
 }); 
 
 describe('Reviews model', () => {

@@ -50,7 +50,9 @@ class User {
         const hash = bcrypt.hashSync(newPassword, salt);
         this.password = hash;
     }
-
+    checkPassword(password) {
+        return bcrypt.compareSync(password, this.password);
+    }
     getReviews(){
         return db.any(`select * from reviews where user_id=${this.id}`)
             .then((arrayOfReviewData) =>{
