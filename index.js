@@ -5,13 +5,50 @@ const port = 3000;
 const Review = require('./models/reviews');
 //  helper fucnction == "middle-ware" or "request handlers"
 const server = http.createServer(async (req, res) => {
+    console.log(req.url);
+
+    // if req.url is "/restaurants", send all restaurants
+    // if its "/users", send list of all users
+    // else if it doesnt match either, send welcome
     res.statusCode = 200;
     res.setHeader('content-type', 'application.json');
     // gets all the reviews from tables
-    const allReviews = await Review.getAll();
-    // needs to be turned into a string so the browser can display it
-    const allReviewsJSON = JSON.stringify(allReviews)
-    res.end(allReviewsJSON);
+    if(req.url.startsWith("/reviews")) {
+
+        const parts = req.url.split("/");
+        console.log(parts);
+        // when the req.url is "/reviews", part is ['', 'reviews']
+        // when req.url is "users/3", parts is ['', reviews, '3']
+        // const allReviewsJSON = JSON.stringify(allReviews)
+        // res.end(allReviewsJSON);
+        if (parts.length === 2) {
+            const allReviews = await Review.getAll();
+            const reviewJSON = JSON.stringify(allReviews);
+            res.end(reviewJSON);
+        } else if (parts.length === 3) {
+            const reviewID = parts[2];
+            // the id will be parts[2]
+            const theReview = await Review.getById(reviewID);
+            // get the user id
+            const reviewJSON = JSON.stringify(theReview);
+            res.end(reviewJSON);
+        } else {
+            res.statusCode = 404;
+            res.end('not found');
+        }
+
+
+    } else if (req.url === "/restaurants"){
+    
+        const allRestaurants = await allRestaurants.getAll();
+        const restaurantJSON = JSON.stringify(allRestaurants);
+        res.end(restaurantJSON);
+
+    } else {
+        res.end(`{
+            message: the data was is not available at this time.
+        }`)
+    }
 });
 
 server.listen(port, hostname, () => {
