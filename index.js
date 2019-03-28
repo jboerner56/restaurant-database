@@ -3,6 +3,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 // import reviews class
 const Review = require('./models/reviews');
+const Restaurant = require('./models/restaurants');
 //  helper fucnction == "middle-ware" or "request handlers"
 const server = http.createServer(async (req, res) => {
     console.log(req.url);
@@ -15,26 +16,31 @@ const server = http.createServer(async (req, res) => {
     // gets all the reviews from tables
     if(req.url.startsWith("/reviews")) {
 
+        const method = req.method;
+
         const parts = req.url.split("/");
         console.log(parts);
         // when the req.url is "/reviews", part is ['', 'reviews']
         // when req.url is "users/3", parts is ['', reviews, '3']
-        // const allReviewsJSON = JSON.stringify(allReviews)
-        // res.end(allReviewsJSON);
-        if (parts.length === 2) {
-            const allReviews = await Review.getAll();
-            const reviewJSON = JSON.stringify(allReviews);
-            res.end(reviewJSON);
-        } else if (parts.length === 3) {
-            const reviewID = parts[2];
-            // the id will be parts[2]
-            const theReview = await Review.getById(reviewID);
-            // get the user id
-            const reviewJSON = JSON.stringify(theReview);
-            res.end(reviewJSON);
-        } else {
-            res.statusCode = 404;
-            res.end('not found');
+        if (method === "GET"){
+            if (parts.length === 2) {
+                const allReviews = await Review.getAll();
+                const reviewJSON = JSON.stringify(allReviews);
+                res.end(reviewJSON);
+            } else if (parts.length === 3) {
+                const reviewID = parts[2];
+                // the id will be parts[2]
+                const theReview = await Review.getById(reviewID);
+                // get the user id
+                const reviewJSON = JSON.stringify(theReview);
+                res.end(reviewJSON);
+            } else {
+                res.statusCode = 404;
+                res.end('not found');
+            }
+
+        } else if (method === "POST") {
+            res.end('{message: you dont get anything}');
         }
 
 
