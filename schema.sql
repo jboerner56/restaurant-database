@@ -7,6 +7,12 @@ create table users (
                             -- NEVER store passwords unencrypted
 );
 
+create table favorites (
+	id serial primary key,
+	user_id int,
+	restaurant_id int
+);
+
 create table restaurants (
     id serial primary key,
     name varchar (200),

@@ -24,11 +24,7 @@ values
 	(1, 'Found a roach in my food', 3, 4),
 	(5, 'restaurant paid for my meal because some guy tried to beat the crap out of me', 1, 3)
 	;
-create table favorites (
-	id serial primary key,
-	user_id int,
-	restaurant_id int
-);
+
 insert into favorites
 	(user_id, restaurant_id)
 values
