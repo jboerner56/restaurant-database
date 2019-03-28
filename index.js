@@ -41,6 +41,10 @@ const server = http.createServer(async (req, res) => {
 
         } else if (method === "POST") {
             res.end('{message: you dont get anything}');
+        } else if (method === "PUT"){
+            res.end('{message: try another method}')
+        } else if (method === "DELETE"){
+            res.end('{message: remove the user}')
         }
 
 
