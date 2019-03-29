@@ -16,11 +16,13 @@ class Restaurant{
         this.menu = menu;
         this.picture = picture;
     }
+
+
     static getAll() {
         return db.any(`select * from restaurants`)
             .then ((arrayOfRestaurants) => {
                 return arrayOfRestaurants.map((restaurantData) => {
-                    const aRestaurant = new restaurant(
+                    const aRestaurant = new Restaurant(
                         restaurantData.id,
                         restaurantData.name,
                         restaurantData.address,

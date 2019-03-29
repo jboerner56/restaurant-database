@@ -40,19 +40,46 @@ const server = http.createServer(async (req, res) => {
             }
 
         } else if (method === "POST") {
+            // on github
+            res.end('{message: you dont get anything}');
+        } else if (method === "PUT"){
+            res.end('{message: try another method}')
+        } else if (method === "DELETE"){
+            res.end('{message: remove the user}')
+            if(parts.lngth === 3){
+                const reviewID = parts[2];
+                await Review.delete(reviewID);
+                res.end(`{message: Deleted review with id ${reviewID}}`);
+            }
+            
+        }
+
+
+    } else if (req.url.startsWith("/restaurants")) {
+        const method = req.method;
+        const parts = req.url.split("/");
+
+        if (method === "GET"){
+            if(parts.length === 2) {
+            const allRestaurants = await Restaurant.getAll();
+            const restaurantJSON = JSON.stringify(allRestaurants);
+            res.end(restaurantJSON);
+            } else if (parts.length === 3) {
+                const restaurantId = parts[2];
+                const theRestaurant = await Restaurant.getById(restaurantId);
+                const restaurantJSON = JSON.stringify(theRestaurant);
+                res.end(restaurantJSON);
+            } else {
+                res.statusCode = 404;
+                res.end('not found');
+            }
+        } else if (method === "POST") {
             res.end('{message: you dont get anything}');
         } else if (method === "PUT"){
             res.end('{message: try another method}')
         } else if (method === "DELETE"){
             res.end('{message: remove the user}')
         }
-
-
-    } else if (req.url === "/restaurants"){
-    
-        const allRestaurants = await allRestaurants.getAll();
-        const restaurantJSON = JSON.stringify(allRestaurants);
-        res.end(restaurantJSON);
 
     } else {
         res.end(`{

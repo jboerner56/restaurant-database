@@ -21,6 +21,29 @@ class Review {
                 );
             });
     }
+    static delete(id) {
+        return db.result(' delete form users where id=$1'[id]);
+        
+    }
+    static add(userData){
+        // insert new data into the database
+        // dont use ${} so it cant be interpolated
+        // 
+        return db.one(`
+        insert into reviews 
+            (score, content, restaurant_id, user_id) 
+        values 
+            ($1, $2, $3, $4)
+            returning id`, 
+            [reviewData.score, reviewData.content, reviewData.restaurant_id, reviewData,user_data])
+            .then((data) => {
+                console.log(`user id: id ${data}`);
+                return data.id;
+            })
+
+
+        // return the id of the new user
+    }
     static getAll() {
         return db.any(`select * from reviews`)
             .then ((arrayOfReviews) => {
