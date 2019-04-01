@@ -1,4 +1,9 @@
 const http = require('http');
+const querystring = require('querystring');
+// require express
+const express = require('express');
+// set express to app variable
+const app = express();
 const hostname = '127.0.0.1';
 const port = 3000;
 // import reviews class
@@ -88,6 +93,6 @@ const server = http.createServer(async (req, res) => {
     }
 });
 
-server.listen(port, hostname, () => {
-    console.log(`server is running at ${hostname}, ${port}`);
+app.listen(port, () => {
+    console.log(`server is running at ${port}`);
 });

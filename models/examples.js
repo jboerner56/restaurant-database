@@ -66,10 +66,4 @@ async function main5(){
     console.log(user3);
     console.log(user4);
 }
-main5();
-
-// get all info for restaurant by id #
-// function getRestInfoById(id){
-//     return db.any(`select * from restaurants where id = ${id}`)
-// }
-// getRestInfoById(1).then(console.log);
+main5()
