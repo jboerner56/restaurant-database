@@ -36,6 +36,21 @@ class Restaurant{
                 });
             });
     }
+    static getById(id){
+        return db.one(`select * from restaurants where id=${id}`)
+            .then((restaurantData) => {
+                return new Restaurant(
+                    restaurantData.id,
+                    restaurantData.name,
+                    restaurantData.address,
+                    restaurantData.street,
+                    restaurantData.state,
+                    restaurantData.phone,
+                    restaurantData.menu,
+                    restaurantData.picture
+                );
+            });
+    }
 }
 
 // export the class

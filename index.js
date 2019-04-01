@@ -7,13 +7,18 @@ const port = 3000;
 const Review = require('./models/reviews');
 const Restaurant = require('./models/restaurants');
 //  helper fucnction == "middle-ware" or "request handlers"
-
+// get all restaurants
 app.get('/restaurants', async(req, res) => {
     const allRestaurants = await Restaurant.getAll();
     // res.json does 2 things
     // 1. it converts your Javascript object or array to a json string
     // 2. it puts the correct content-header on the response
     res.json(allRestaurants);
+});
+// get restaurant by individual id
+app.get('/restaurants/:id', async(req, res) => {
+    const theRestaurant = await Restaurant.getById(req.params.id);
+    res.json(theRestaurant);
 });
 
 app.get('/reviews', async(req, res) => {
@@ -28,21 +33,6 @@ app.get('/reviews/:id', async(req, res) => {
 app.listen(port, () => {
     console.log(`server is running at ${port}`);
 });
-    // if req.url is "/restaurants", send all restaurants
-    // if its "/users", send list of all users
-    // else if it doesnt match either, send welcome
-//     res.statusCode = 200;
-//     res.setHeader('content-type', 'application.json');
-//     // gets all the reviews from tables
-//         } else if (method === "DELETE"){
-//             res.end('{message: remove the user}')
-//             if(parts.lngth === 3){
-//                 const reviewID = parts[2];
-//                 await Review.delete(reviewID);
-//                 res.end(`{message: Deleted review with id ${reviewID}}`);
-//             }
-            
-//         }
 
 
 //     } else if (req.url.startsWith("/restaurants")) {
